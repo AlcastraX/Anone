@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physical Mathest</title>
+    <title>Basic Math Training</title>
     <style>
         body {
             margin: 0;
@@ -15,6 +15,7 @@
             display:flex;
             justify-content: center;
             align-items: center;
+            overflow:hidden;
         }
         .Pamphlet {
             width:46.875rem;
@@ -70,7 +71,7 @@
             font-size: 3rem;
         }
         .V1::before{
-            content: "X";
+            content: attr(data-symbol);
             position:absolute;
             top:50%;
             left:100%;
@@ -109,10 +110,10 @@
             left:50%;
             transform: translate(-50%, -50%);
         }
-        .jitter-centered .Rbutton:hover {
+        #BStart:hover {
             background-color: #00008040;
         }
-        .Rbutton:active {
+        #BStart:active {
             box-shadow: inset 2px 2px black;
         }
         .TIMER {
@@ -130,7 +131,7 @@
             box-shadow:2px 2px black;
 
         }
-        .FAILED {
+        .Settings {
             position:absolute;
             display:flex;
             flex-direction: column;
@@ -147,9 +148,8 @@
             border-right:2px solid #3a3a3a;
             border-bottom:2px solid #3a3a3a;
             z-index:50;
-            filter:blur(0.5px);
+            filter:blur(0.5px); 
             display:none;
-            
         }
         .Input {
             width:40%;
@@ -182,7 +182,7 @@
             box-shadow:2px 2px black;
             
         }
-        .Exponential {
+        .Mastery {
             position:absolute;
             top:125%;
             width:100%;
@@ -197,13 +197,17 @@
          * {
          font-family: 'Algerian', serif;
         }
-        .jittered .Casual:hover,.jittered .Intermediate:hover,.jittered .Challenge:hover,.jittered .Exponential:hover {
+         body.AllowJitter button:hover {
             background-color: #00008040;
             animation: jitter 0.1s infinite;
         }
-        .Casual:active, .Intermediate:active, .Challenge:active, .Exponential:active {
+         body.AllowJitter button:active {
             box-shadow: inset 2px 2px black;
             transform:translate(-1%,-1%)
+        }
+        #BStart:hover {
+            background-color: #00008040;
+            animation: jitter-centered 0.1s infinite;
         }
         .Difficulties { 
             position:absolute;
@@ -236,7 +240,7 @@
             background-color: #777777;
             opacity:0.4;
             filter:blur(0.7px);
-            z-index:5;
+            z-index:51;
             pointer-events:none;
             position:fixed;
             inset:0;
@@ -311,31 +315,129 @@
             display:flex;
             flex-direction: column;
             justify-content:flex-start;
+            font-size:1.5rem;
         }
         .control1 {
             display:flex;
             flex-direction: column;
-            font-size:1.5rem;
             gap:1rem;
-            flex:1
+            position:relative;
+            overflow:visible;
+        }
+        .Settings-icon {
+            position:absolute;
+            top:0%;
+            right:0%;
+            width:5rem;
+            aspect-ratio:1/1;
+            border:2px solid black;
+            cursor:pointer;
+            z-index:52;
+            border:none;
+        }
+        .Settings-icon:hover {
+            filter:brightness(120%);
+            transform-origin:center;
+            animation: rotate 0.5s linear infinite;
+        }
+        .Settings-icon:active {
+            filter:brightness(80%);
+            
+            
+        }
+        @keyframes rotate {
+            from {transform:rotate(0deg)}
+            to {transform:rotate(180deg)}
         }
         .Settings-Section1 {
             height: 60%;
+            display:flex;
+        }
+        .Btn-Place {
+            align-self:center;
+            display:flex;
+            flex-direction: column;
+            gap:calc(1rem - 2px);
+            position:absolute;
+            top:0%;
+            left:35%;
+            transform:translateX(-50%)
         }
         .Settings-Section2 {
             height: 40%;
+            font-size:3rem;
+            align-items:center;
+            justify-content: center;
+            gap:0.5rem;
         }
-        .Onoff {
-            height:100%;
-            width:5rem;
-            background:#c0c0c0;
-            border-top:2px solid white;
-            border-left:2px solid white;
-            border-right:2px solid #3a3a3a;
-            border-bottom:2px solid #3a3a3a;
+        .display {
+            display:flex;
+        }
+        .Mode {
+            width:75%;
+            height:clamp(0.8rem, 2rem, 2rem);
+            margin:0;
+            background: linear-gradient(
+             to right,
+             #00008000 0%,
+             #00008017 40%,
+             #00008040 50%,
+             #00008017 60%,
+             #00008000 100%);
+            border:solid;
+            border-color: white #3a3a3a #3a3a3a white;
             box-shadow:2px 2px black;
             cursor: pointer;
-            margin-left:1rem;
+        }
+        .SS2-head {
+            margin:auto;
+            font-weight:bold;
+        }
+        
+        .Btn-Place {
+            display: flex;
+            gap: 1rem;
+            background: #c0c0c0;
+        }
+
+/* 1. Hide the actual checkbox */
+        .Onoff {
+            display: none;
+        }
+
+        .Onoff + label {
+            display: inline-block;
+            width:5rem;
+            height:2rem;
+            background: hsl(0, 0%, 75%);
+            cursor: pointer;
+            user-select: none;
+            border:2px solid;
+            box-sizing:border-box;
+            border-color: white #3a3a3a #3a3a3a white;
+            box-shadow:2px 2px black;
+            margin:0;
+
+        }
+        label {
+            position:relative;
+        }
+        .Onoff:checked + label {
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            background: #d0d0d0; 
+        }
+        label::after {
+            content:"";
+            position:absolute;
+            background: hsl(0, 0%, 60%);
+            width:1.6rem;
+            aspect-ratio:1/1;
+            left:1px;
+            top:50%;
+            transform: translateY(-50%)
         }
         @media (max-width: 768px) {
             .Pamphlet {
@@ -381,7 +483,7 @@
                 height:1.9rem;
                 font-size: 0.8rem;
             }
-            .Exponential {
+            .Mastery {
                 width:100%;
                 height:1.9rem;
                 font-size: 0.8rem;
@@ -393,7 +495,7 @@
                     height:25px;
                     font-size: 0.59rem;
                 }
-                .Exponential {
+                .Mastery {
                     height:25px;
                     font-size: 0.59rem;
                     width:100%;
@@ -434,13 +536,13 @@
     </head>
     <body>
         <div class="Overlay"></div>
-        
+        <img class="Settings-icon" src="Settings.png" alt="Settings">
         <div class="Pamphlet">
             <div class="Difficulties">
             <button class="Casual">CASUAL</button>
             <button class="Intermediate">INTERMEDIATE</button>
             <button class="Challenge">CHALLENGE</button>
-            <button class="Exponential">EXPONENTIAL</button>
+            <button class="Mastery">Mastery</button>
         </div>
             <div class="Streak">STREAK:</div>
             <div class="sec1">
@@ -449,31 +551,52 @@
                 <div class="V2"><div class="N2"></div></div>
             </div>
              <div class="sec2">
-                <button class="Rbutton">START</button>
+                <button id="BStart" class="Rbutton">START</button>
                <input class="Input" autofocus placeholder="Type your answer here">
                <p class="Hasil"></p>
             </div>
         </div>
-        <div class="FAILED">
+        <div class="Settings">
            <div class="DONE"> <h1 style="margin:0;">SETTINGS</h1></div>
            <div class="Main-content">
             <div class="Settings-Section1">
                 <div class="control1">
-                <div class="toggle-jitter">Allow Jitter:<input id="AJB"class="Onoff" type="checkbox"></div>
-                <div class="toggle-Overlay">Allow Overlay:<button id="AOB" class="Onoff"></button></div>
-                <div class="toggle-negative">Allow Negative:<button id="ANB" class="Onoff"></button></div>
-                <div class="toggle-decimal">Allow Decimal:<button id="ADB" class="Onoff"></button></div>
+                <div class="toggle-jitter" style="display:flex">Allow Jitter:</div>
+                <div class="toggle-Overlay" style="display:flex">Allow Overlay:</div>
+                <div class="toggle-negative" style="display:flex">Allow Negative:</div>
+                <div class="toggle-decimal" style="display:flex">Allow Decimal:</div>
+                <div class="Btn-Place">
+                <input id="AJB" class="Onoff" type="checkbox">
+                <label for="AJB"></label>
+
+                <input id="AOB" class="Onoff" type="checkbox">
+                <label for="AOB"></label>
+
+                <input id="ANB" class="Onoff" type="checkbox">
+                <label for="ANB"></label>
+
+                <input id="ADB" class="Onoff" type="checkbox">
+                <label for="ADB"></label>
+                </div>
+                <div style="font-size:3rem" class="SS2-head">SELECT MODE:</div>  
             </div>
             </div>
-            <div class="Settings-Section2"></div>
+            <div class="Settings-Section2">
+                
+                <button id="Addition" class="Mode">ADDITION</button>
+                <button id="Subtraction" class="Mode">SUBTRACTION</button>
+                <button id="Multiplication" class="Mode">MULTIPLICATION</button>
+                <button id="Division" class="Mode">DIVISION</button>
+            </div>
            </div>
         </div>
         <script>
             const body = document.body;
+            const V1 = document.querySelector('.V1')
             const Casual = document.querySelector('.Casual')
             const Intermediate = document.querySelector('.Intermediate')
             const Challenge = document.querySelector('.Challenge')
-            const Exponential = document.querySelector('.Exponential')
+            const Mastery = document.querySelector('.Mastery')
             const Input = document.querySelector(".Input")
             const Rbutton = document.querySelector(".Rbutton")
             const hasil = document.querySelector(".Hasil")
@@ -483,8 +606,13 @@
             const AO = document.getElementById('AOB')
             const AN = document.getElementById('ANB')
             const AD = document.getElementById('ADB')
-            const DiffButtons = document.querySelector('.Casual .Intermediate .Challenge .Exponential')
-            let AllowJitter = false;
+            const Addition = document.getElementById('Addition')
+            const Subtraction = document.getElementById('Subtraction')
+            const Multiplication = document.getElementById('Multiplication')
+            const Division = document.getElementById('Division')
+            const Settings = document.querySelector('.Settings')
+            const Setting_gear = document.querySelector('.Settings-icon')
+            const DiffButtons = document.querySelector('.Casual, .Intermediate, .Challenge, .Mastery')
             let AllowOverlay = false;
             let Difficulty = "None"
             let time = 10;
@@ -493,6 +621,9 @@
             let CIC = 1
             let NOO = 0
             let s123 = 7
+                Setting_gear.addEventListener("click", () => {
+                    Settings.classList.toggle("display")
+                })
             Casual.addEventListener("click", ()=>{
                 Difficulty = "Casual"
                 Rbutton.disabled = false
@@ -505,8 +636,8 @@
                 Difficulty = "Challenge"
                 Rbutton.disabled = false
             })
-            Exponential.addEventListener("click", ()=>{
-                Difficulty = "Exponential"
+            Mastery.addEventListener("click", ()=>{
+                Difficulty = "Mastery"
                 Rbutton.disabled = false
             })
             Rbutton.disabled = CIC < 2
@@ -519,7 +650,50 @@
                 CIC = Math.floor(Math.pow(2, Math.floor(Number(Streak/s123)) + 2))
                 NOO = 500 + Streak * 50
             }
+        let Modes = "MULTIPLICATION"
+                    Addition.addEventListener("click", ()=>{ Modes = "ADDITION"})
+                    Subtraction.addEventListener("click", ()=>{Modes = "SUBSTRACTION"})
+                    Multiplication.addEventListener("click", ()=>{Modes = "MULTIPLICATION"})
+                    Division.addEventListener("click", ()=>{Modes = "DIVISION"})
+            function Randoms() {
+                    const N1 = document.querySelector('.N1');
+                    const N2 = document.querySelector('.N2');
+                    N1.style.opacity = "1";
+                    N2.style.opacity = "1";
+                    const rando = Math.floor(Math.random() * CIC) + 1;
+                    const rando2 = Math.floor(Math.random() * CIC) + 1;
+                    N1.textContent = `${rando}`;
+                    N2.textContent = `${rando2}`;
+                    switch (Modes) {
+                        case "ADDITION":
+                            answer = rando + rando2;
+                            V1.setAttribute("data-symbol", "+")
+                            break;
+                        case "SUBSTRACTION":
+                            answer = Math.abs(rando - rando2); 
+                            V1.setAttribute("data-symbol", "-") 
+                            break;
+                        case "MULTIPLICATION":
+                            answer = rando * rando2;
+                            V1.setAttribute("data-symbol", "X")
+                            break;
+                        case "DIVISION":
+                            if (AD.checked) {
+                                answer = parseFloat((rando / rando2).toFixed(2));
+                            } else {
+                                N1.textContent = `${rando*rando2}`;
+                                answer = rando*rando2/rando2 ;
+                            };
+                            V1.setAttribute("data-symbol", "/")
+                            break;
+                    }
+                    setTimeout(() => {
+                        N1.textContent = "?";   
+                        N2.textContent = "?";
+                    }, NOO);
+            }
             function DIFFICULTY()  {
+                if (Modes ==="MULTIPLICATION" || Modes==="DIVISION"){
                 if (Difficulty === "Casual") {
                     CIC = 25
                     NOO = 1000
@@ -529,64 +703,62 @@
                 } else if (Difficulty === "Challenge") {
                     CIC = 100
                     NOO = 2000
-                } else if (Difficulty === "Exponential") {
+                } else if (Difficulty === "Mastery") {
                     Exponentia()
                 }
             }
-            function Randoms() {
-                    const N1 = document.querySelector('.N1');
-                    const N2 = document.querySelector('.N2');
-                    N1.style.opacity = "1";
-                    N2.style.opacity = "1";
-                    const rando = Math.floor(Math.random() * CIC);
-                    const rando2 = Math.floor(Math.random() * CIC) + 1;
-                    N1.textContent = `${rando}`;
-                    N2.textContent = `${rando2}`;
-                    answer = rando * rando2;
-                    setTimeout(() => {
-                        N1.textContent = "?";
-                        N2.textContent = "?";
-                    }, NOO);
+            else if(Modes === "ADDITION" || Modes ==="SUBSTRACTION"){
+                if (Difficulty === "Casual") {
+                    CIC = 100
+                    NOO = 1000
+                } else if (Difficulty === "Intermediate") {
+                    CIC = 250
+                    NOO = 1500
+                } else if (Difficulty === "Challenge") {
+                    CIC = 500
+                    NOO = 2000
+                } else if (Difficulty === "Mastery") {
+                    Exponentia()
+                }
+            }
             }
             let answer;
             let timer;
-            let counter = false;
+            let counter = -1;
+            body.classList.add("AllowJitter");
             AJ.addEventListener("change", () => {
-                if (AJ.checked) {
-                    body.classList.toggle("jittered", AllowJitter);
-                    body.classList.toggle("jitter-centered", AllowJitter);
-                }
+                body.classList.toggle("AllowJitter");
             });
-
                 Rbutton.addEventListener("click", () => {
                     Input.classList.add("jittered-centered");
-                    counter = true;
+                    counter++;
                     if (timer) {clearInterval(timer)}
                     Rbutton.textContent = "SUBMIT"
                     Rbutton.disabled = true;
                     Input.disabled = true;
                     if (Difficulty === "Challenge") 
                     {time = 15}
-                    else if (Difficulty === "Exponential") 
+                    else if (Difficulty === "Mastery") 
                     {time = 10 + Math.floor(Number(Streak/s123)) * 2}
                     else {time = 10}
                     DIFFICULTY()
                     const Vinput = parseFloat(Input.value)
-                    if (counter === true) {
+                    if (counter > 0) {
                         if (Vinput === answer) {
                             hasil.textContent = "CORRECT!"
-                            if (Difficulty !== "Exponential"){Streak++;}
+                            if (Difficulty !== "Mastery"){Streak++;}
                             else {Streak = Streak + 1 + Math.floor(Number(Streak)/s123);}
                             SD.textContent = `STREAK: ${Streak}`
                         } else {
+                            Streak = 0;
                             hasil.textContent = `WRONG! The correct answer was ${answer}.`
                             Input.disabled = true
                             TIMER.textContent = `GAME OVER`
-                            Streak = 0;
                             Rbutton.textContent = "RESTART"
                             SD.textContent = ""
                         }
                     }
+                    else{hasil.textContent = "GOOD LUCK! DIFFICULTY: " + Difficulty.toUpperCase() + " MODE: " + Modes.toUpperCase()}
                     Timer()
                     setTimeout(() => {
                         Randoms()
@@ -601,33 +773,35 @@
                 })
                 Input.addEventListener("keydown", (event ) => {
                     if (event.key !== "Enter") return;
+                    counter++;
                     if (timer) {clearInterval(timer)}
                     Rbutton.textContent = "SUBMIT"
                     Rbutton.disabled = true;
                     Input.disabled = true;
                     if (Difficulty === "Challenge") 
                     {time = 15}
-                    else if (Difficulty === "Exponential") 
+                    else if (Difficulty === "Mastery") 
                     {time = 10 + Math.floor(Number(Streak/s123)) * 2}
                     else {time = 10}
                     DIFFICULTY()
-                    Timer()
                     const Vinput = parseFloat(Input.value)
                     if (counter > 0) {
                         if (Vinput === answer) {
                             hasil.textContent = "CORRECT!"
-                            if (Difficulty !== "Exponential"){Streak++;}
+                            if (Difficulty !== "Mastery"){Streak++;}
                             else {Streak = Streak + 1 + Math.floor(Number(Streak)/s123);}
                             SD.textContent = `STREAK: ${Streak}`
                         } else {
+                            Streak = 0;
                             hasil.textContent = `WRONG! The correct answer was ${answer}.`
                             Input.disabled = true
                             TIMER.textContent = `GAME OVER`
-                            Streak = 0;
                             Rbutton.textContent = "RESTART"
                             SD.textContent = ""
                         }
                     }
+                    else{hasil.textContent = "GOOD LUCK! DIFFICULTY: " + Difficulty.toUpperCase() + " MODE: " + Modes.toUpperCase()}
+                    Timer()
                     setTimeout(() => {
                         Randoms()
                         Input.value = ""        
@@ -637,7 +811,6 @@
                         Input.focus()
                         Rbutton.textContent = "SUBMIT"
                     }, 1000)
-                    
                 })
             function Timer() { 
                 timer = setInterval(()=>{
@@ -651,7 +824,7 @@
                         setTimeout(() => {
                             if (Difficulty === "Challenge") 
                             {time = 15}
-                            else if (Difficulty === "Exponential") 
+                            else if (Difficulty === "Mastery") 
                             {time = 10 + Math.floor(Number(Streak/s123)) * 2}
                              else {time = 10}
                             Input.value = ""
