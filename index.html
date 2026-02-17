@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Basic Math Training - Practice your math skills with fun and challenging questions. Choose your difficulty and mode, and try to keep your streak going!">
+    <meta name="author" content="Your Name">
+    <meta name="keywords" content="math, training, quiz, game, education, practice, arithmetic, challenge, streak">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Basic Math Training</title>
     <style>
         body {
@@ -16,6 +21,89 @@
             justify-content: center;
             align-items: center;
             overflow:hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 0.2rem;
+            height:fit-content;
+            background: hsl(0, 0%, 20%)
+        }
+        .INTRODUCTION {
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight:bold;
+            width: 30rem;
+            background: #b5b5b5;
+            aspect-ratio:3/5;
+            z-index:10000000;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            opacity:1;
+            box-shadow: 3px 3px 0px hsl(0, 0%, 10%);
+            border:2px solid;
+            border-color: white #3a3a3a #3a3a3a white;
+            box-sizing:border-box;
+            overflow-y:auto;
+            overflow-wrap:break-word;
+        }
+        .HTP {
+            font-size: 1.2rem;
+            background-color:#000080d5;
+            width: 98%;
+            height: 1.2rem;
+            color:white;
+            box-shadow:2px 2px black;
+            text-align: center;
+            position:relative;
+        }
+        #CloseHTP:hover {
+            background-color: hsla(258, 88%, 27%, 0.25);
+            animation: none;
+        }
+        #CloseHTP:active {
+            background-color: hsla(258, 88%, 54%, 0.5);
+            box-shadow: inset 2px 2px black;
+            transform:translate(-10%,-50%);
+        }
+        .CHTP {
+            position:absolute;
+            top:50%;
+            right:0;
+            transform: translate(-10%,-50%);
+            height:80%;
+            aspect-ratio:1/1;
+            background-color: #b5b5b5;
+            border:2px solid;
+            border-color: white #3a3a3a #3a3a3a white;
+            box-shadow:2px 2px black;
+            cursor:pointer;
+            padding:0;
+            margin:0;
+        }
+        .Rule {
+            display:block;
+            font-size: 1rem;
+            background-color:#b5b5b5;
+            width: 98%;
+            color:white;
+            flex:1;
+            color:#333333d7;
+            list-style-type:decimal;
+        }
+        .Rules {
+            list-style-type:decimal;
+            margin:auto; 
+            box-sizing:border-box; 
+            padding-left:1.5rem; 
+            line-height:1.3;
+            letter-spacing:0.05rem; 
+            font-size:1.1rem; 
+            text-align:left; 
+            width:100%
         }
         .Pamphlet {
             width:46.875rem;
@@ -297,6 +385,7 @@
             text-align:left;
             background-color:#000080d5;
             width: 98%;
+            height:fit-content;
             color:white;
             box-shadow:2px 2px black;
             padding-left:0.4rem
@@ -338,12 +427,10 @@
         .Settings-icon:hover {
             filter:brightness(120%);
             transform-origin:center;
-            animation: rotate 0.5s linear infinite;
+            animation: rotate 1s linear infinite;
         }
         .Settings-icon:active {
-            filter:brightness(80%);
-            
-            
+            filter:brightness(80%); 
         }
         @keyframes rotate {
             from {transform:rotate(0deg)}
@@ -399,12 +486,9 @@
             gap: 1rem;
             background: #c0c0c0;
         }
-
-/* 1. Hide the actual checkbox */
         .Onoff {
             display: none;
         }
-
         .Onoff + label {
             display: inline-block;
             width:5rem;
@@ -417,7 +501,7 @@
             border-color: white #3a3a3a #3a3a3a white;
             box-shadow:2px 2px black;
             margin:0;
-
+            transition:background 0.2s;
         }
         label {
             position:relative;
@@ -427,22 +511,43 @@
             border-left: 2px solid #000000;
             border-right: 2px solid #ffffff;
             border-bottom: 2px solid #ffffff;
-            background: #d0d0d0; 
+            background: hsl(0, 0%, 40%);
+            transition:background 0.2s;
         }
         label::after {
             content:"";
             position:absolute;
             background: hsl(0, 0%, 60%);
-            width:1.6rem;
+            width:1.4rem;
+            border: 1px solid;
+            border-color: white #3a3a3a #3a3a3a white;
+            box-shadow:1px 1px black;
             aspect-ratio:1/1;
             left:1px;
-            top:50%;
-            transform: translateY(-50%)
+            top:49%;
+            transform:translateY(-50%);
+            transition:background 0.2s;
+            transition:left 0.2s;
+        }
+        .Onoff:checked + label::after {
+            left:calc(100% - 1.6rem - 1px);
+            background: hsl(0, 0%, 20%);
+            transition:background 0.2s;
+            transition:left 0.2s;
         }
         @media (max-width: 768px) {
             .Pamphlet {
                 width:90vw;
                 aspect-ratio: 2/1.2;
+            }
+            .Settings {
+                width:95vw;
+                aspect-ratio: 2/1.2;
+            }
+            .INTRODUCTION {
+                width:85vw;
+                height:auto;
+                max-height:80vh;
             }
             .N1, .N2 {
                 font-size: 2rem;
@@ -457,6 +562,9 @@
                 height:1.5rem;
                 font-size: 0.8rem;
                 top:12.5%
+            }
+            .Settings-icon {
+                width:3rem;
             }
             .Input {
                 width:60%;
@@ -475,66 +583,266 @@
                 font-size: 1.5rem;
             }
             .Difficulties {
+                width: 75vw;
                 gap:5px;
-                top: -40%
+                top:-40%
             }
             .Casual, .Intermediate, .Challenge {
-                width:30vw;
+                width:30%;
                 height:1.9rem;
                 font-size: 0.8rem;
+                flex:1;
             }
             .Mastery {
                 width:100%;
                 height:1.9rem;
                 font-size: 0.8rem;
             }
-            @media (max-width: 400px) {
-                
-                .Casual, .Intermediate, .Challenge {
-                    width:28vw;
-                    height:25px;
-                    font-size: 0.59rem;
-                }
-                .Mastery {
-                    height:25px;
-                    font-size: 0.59rem;
-                    width:100%;
-                }
-                .V1::before {
-                    font-size: 2rem;
-                }
+        }
+
+        @media (max-width: 600px) {
+            .Pamphlet {
+                width:95vw;
+                aspect-ratio: 2/1.2;
+                top:60%;
             }
-            @media (orientation: landscape){
-                .Pamphlet {
-                    width:95vw;
-                    height:55vh;
-                    top:90%;
-                }
-                .N1, .N2 {
-                    font-size: 1.5rem;
-                    width:25%;
-                    aspect-ratio: 1/1;
-                }
-                .Rbutton {
-                    width:25%;
-                    height:1.2rem;
-                    font-size: 0.7rem;
-                    top:15%
-                }
-                .Input {
-                    width:50%;
-                    height:8%;
-                    font-size: 0.8rem;
-                }
-                .Hasil {
-                    font-size: 0.7rem;
-                    top:50%
-                }
+            .Settings {
+                width:98vw;
+                aspect-ratio: 2/1.2;
+            }
+            .INTRODUCTION {
+                width:92vw;
+                height:auto;
+                max-height:75vh;
+            }
+            .N1, .N2 {
+                font-size: 1.5rem;
+                width:25%;
+                aspect-ratio: 1/1;
+            }
+            .V1::before {
+                font-size: 2rem;
+            }
+            .Rbutton {
+                width:40%;
+                height:1.3rem;
+                font-size: 0.7rem;
+                top:12%;
+            }
+            .Settings-icon {
+                width:2.5rem;
+            }
+            .Input {
+                width:70%;
+                height:8%;
+                font-size: 0.85rem;
+            }
+            .TIMER, .Streak {
+                font-size: 0.65rem;
+                height:0.7rem;
+            }
+            .Hasil {
+                font-size: 0.7rem;
+                top:50%;
+            }
+            .Difficulties::before {
+                font-size: 1.2rem;
+            }
+            .Difficulties {
+                width: 85vw;
+                gap:4px;
+                top:-45%;
+            }
+            .Casual, .Intermediate, .Challenge {
+                width:32%;
+                height:1.7rem;
+                font-size: 0.7rem;
+                flex:1;
+            }
+            .Mastery {
+                width:100%;
+                height:1.7rem;
+                font-size: 0.7rem;
             }
         }
+
+        @media (max-width: 400px) {
+            .Casual, .Intermediate, .Challenge {
+                width:28vw;
+                height:25px;
+                font-size: 0.59rem;
+                flex:1;
+            }
+            .Difficulties {
+                width:90vw;
+                gap:3px;
+                top:-50%;
+            }
+            .Difficulties::before {
+                font-size: 1.2rem;
+            }
+            .Mastery {
+                height:25px;
+                font-size: 0.59rem;
+                width:100%;
+            }
+            .V1::before {
+                font-size: 2rem;
+            }
+        }
+        @media (max-height: 768px) {
+        .Pamphlet { 
+            width: 50vw; 
+            height: 65vh; 
+            top: 65%; 
+            transform: translate(-50%, -50%);
+        }
+        .Settings { 
+            width: 70vw; 
+            height: 65vh; 
+            top: 50%; 
+            transform: translate(-50%, -50%);
+        }
+        .INTRODUCTION { 
+            width: 90vw; 
+            max-height: 70vh; 
+            font-size: clamp(1.2rem, 4vw, 2rem);
+        }
+        .N1, .N2 { 
+            font-size: 0.6rem; 
+            width: 27.5%;
+            top:55%;
+        }
+        .V1:before { 
+            font-size: clamp(2rem, 8vw, 4rem);
+        }
+        .Rbutton { 
+            width: 25%; 
+            height: 2.5rem; 
+            font-size: 1rem;
+            top: 15%;
+        }
+        .Input { 
+            width: 50%; 
+            height: 15%;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+        }
+        .TIMER, .Streak { 
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
+        }
+        .Hasil { 
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
+            top: 48%;
+        }
+        .Difficulties { 
+            width: 50vw; 
+            gap: 1vw; 
+            top: -25%;
+        }
+        .Difficulties::before { 
+            font-size: clamp(1.5rem, 2rem, 2.5rem);
+        }
+        .Casual, .Intermediate, .Challenge { 
+            flex: 1; 
+            height: 2rem;
+            font-size: 0.6rem;
+        }
+        .Mastery { 
+            width: 100%; 
+            height: 2rem;
+        }
+        .Settings-icon { 
+            width: clamp(2.5rem, 7vw, 4rem);
+        }
+        }
+    @media (max-height:500px){
+        .Pamphlet { 
+            width: 50vw; 
+            height: 65vh; 
+            top: 60%;
+        }
+        .N1, .N2 { 
+            font-size: 0.6rem; 
+            width: 20%;
+            top:60%
+        } 
+        .Difficulties {
+            width: 50vw; 
+            gap: 2px; 
+            top: -32.5%;
+        }
+        .Difficulties button {
+            height: 1.6rem;
+            font-size: 0.5rem;
+        }
+         .Difficulties::before { 
+            font-size: 1.5rem;
+            top:-50%
+        }
+         .Rbutton { 
+            width: 25%; 
+            height: 1.5rem; 
+            font-size: 0.8rem;
+            top: 15%;
+        }
+        .Settings { 
+            width: 70vw; 
+            height: 80vh; 
+            top: 50%; 
+            transform: translate(-50%, -50%);
+        }
+        .INTRODUCTION { 
+            width: 90vw; 
+            max-height: 75vh; 
+            font-size: clamp(1.2rem, 4vw, 2rem);
+        }
+        @media (max-height: 350px) {
+            .N1, .N2 { 
+                font-size: 0.5rem; 
+                width: 20%;
+                top:70%
+             } 
+    }
+}
     </style>
     </head>
     <body>
+        <div class="INTRODUCTION">
+            <div class="HTP"> HOW TO PLAY <button id="CloseHTP"class="CHTP"></button></div>
+            <div class="Rule">
+                <div style="list-style:none; font-size:2rem; width:100%; margin-bottom:0.5rem; color:rgba(24, 24, 24, 0.829)"><b>GENERAL</b></div>
+                <ul class="Rules">
+                    <li>Select Difficulties to Start</li>
+                    <li>Select Modes in Settings </li>
+                    <li>Use settings to customize your experience!</li>
+                    <li>Press <b>START</b> to begin.</li>
+                    <li>The number will be visible for just a few seconds before it become "?"</li>
+                    <li>Answer the math question before time runs out.</li>
+                    <li>Answer the questions correctly!</li>
+                    <li>Keep your streak going for higher scores!</li>
+                </ul>
+                <div style="list-style:none; font-size:2rem; width:100%; margin-bottom:0.5rem; color:rgba(24, 24, 24, 0.829)"><b>DIFFICULTIES</b></div>
+                <ul class="Rules">
+                    <li><b>CASUAL</b> is for beginners. It has a smaller number range and less Number Visibility Time (NVT)</li>
+                    <li><b>INTERMEDIATE</b> is for those who want a bit more challenge. It has a decent number range and more NVT</li>
+                    <li><b>CHALLENGE</b> is for those who want a real challenge. It has an even bigger number range and even more NVT</li>
+                    <li><b>MASTERY</b>...Your limit is tested by the System, your capability is determined by how much streak you earns. The Question difficulty, NVT, and time limit is determined by your streak.</li>
+                </ul>
+                <div style="list-style:none; font-size:2rem; width:100%; margin-bottom:0.5rem; color:rgba(24, 24, 24, 0.829)"><b>SETTINGS</b></div>
+                <ul class="Rules" style="margin-bottom:1rem;">
+                    <li><b>Allow Jitter</b> adds jitter animation to buttons when hovered or clicked.</li>
+                    <li><b>Allow Overlay</b> adds a gray overlay on the screen when the settings menu is open, making it easier to focus on the settings.</li>
+                    <li><b>Allow Negative</b> allows negative answers in subtraction problems. If disabled, all subtraction problems will be arranged to have non-negative answers. Example(3-4 =|3-4| = 1)</li>
+                    <li><b>Allow Decimal</b> allows decimal answers in division problems. To answer decimal problems, you have to write 2 numbers behind the dot, example(4/3 = 1.33). If disabled, all division problems will be arranged to have integer answers.</li>
+                    <li><b>Select Mode</b> allows you to select the type of math problems you want to solve, including addition, subtraction, multiplication, and division.</li>
+                </ul>
+                <ul class="Rules" style="color:rgba(24, 24, 24, 0.829); list-style:none">
+                    <li>This Game can have more features in the future</li>
+                    <li>If you still want to read The rules and How to play, refresh is the way!</li>
+
+                </ul>
+            </div>
+        </div>
         <div class="Overlay"></div>
         <img class="Settings-icon" src="Settings.png" alt="Settings">
         <div class="Pamphlet">
@@ -606,21 +914,35 @@
             const AO = document.getElementById('AOB')
             const AN = document.getElementById('ANB')
             const AD = document.getElementById('ADB')
+            const Overlay = document.querySelector('.Overlay')
             const Addition = document.getElementById('Addition')
             const Subtraction = document.getElementById('Subtraction')
             const Multiplication = document.getElementById('Multiplication')
             const Division = document.getElementById('Division')
             const Settings = document.querySelector('.Settings')
             const Setting_gear = document.querySelector('.Settings-icon')
-            const DiffButtons = document.querySelector('.Casual, .Intermediate, .Challenge, .Mastery')
-            let AllowOverlay = false;
+            const CHTP = document.getElementById('CloseHTP')
+            const INTRO = document.querySelector('.INTRODUCTION')
             let Difficulty = "None"
             let time = 10;
             let Streak = 0;
+            let AllowDecimal = false
             Input.disabled = true;
             let CIC = 1
             let NOO = 0
             let s123 = 7
+            AN.checked = true
+            AJ.checked = true
+            CHTP.addEventListener("click", () => {
+                INTRO.style.display = "none";
+            })
+            AD.addEventListener("change", ()=> {AllowDecimal = !AllowDecimal})
+            AO.addEventListener("change", ()=>{
+                if (AO.checked) {Overlay.style.display = "block"}
+                else {Overlay.style.display = "none"}})
+            AJ.addEventListener("change", () => {
+                body.classList.toggle("AllowJitter");
+            });
                 Setting_gear.addEventListener("click", () => {
                     Settings.classList.toggle("display")
                 })
@@ -650,7 +972,7 @@
                 CIC = Math.floor(Math.pow(2, Math.floor(Number(Streak/s123)) + 2))
                 NOO = 500 + Streak * 50
             }
-        let Modes = "MULTIPLICATION"
+                 let Modes = "MULTIPLICATION"
                     Addition.addEventListener("click", ()=>{ Modes = "ADDITION"})
                     Subtraction.addEventListener("click", ()=>{Modes = "SUBSTRACTION"})
                     Multiplication.addEventListener("click", ()=>{Modes = "MULTIPLICATION"})
@@ -670,7 +992,10 @@
                             V1.setAttribute("data-symbol", "+")
                             break;
                         case "SUBSTRACTION":
-                            answer = Math.abs(rando - rando2); 
+                            if (AN.checked) {
+                                answer = rando - rando2
+                            }
+                            else {answer = Math.abs(rando - rando2)}
                             V1.setAttribute("data-symbol", "-") 
                             break;
                         case "MULTIPLICATION":
@@ -678,7 +1003,7 @@
                             V1.setAttribute("data-symbol", "X")
                             break;
                         case "DIVISION":
-                            if (AD.checked) {
+                            if (AllowDecimal) {
                                 answer = parseFloat((rando / rando2).toFixed(2));
                             } else {
                                 N1.textContent = `${rando*rando2}`;
@@ -693,42 +1018,54 @@
                     }, NOO);
             }
             function DIFFICULTY()  {
+                // Reset all buttons to original color
+                Casual.style.backgroundColor = "#00008017";
+                Intermediate.style.backgroundColor = "#00008017";
+                Challenge.style.backgroundColor = "#00008017";
+                Mastery.style.backgroundColor = "#00008017";
+                
                 if (Modes ==="MULTIPLICATION" || Modes==="DIVISION"){
                 if (Difficulty === "Casual") {
                     CIC = 25
                     NOO = 1000
+                    Casual.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Intermediate") {
                     CIC = 50
                     NOO = 1500
+                    Intermediate.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Challenge") {
                     CIC = 100
                     NOO = 2000
+                    Challenge.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Mastery") {
                     Exponentia()
+                    Mastery.style.backgroundColor = "#00008040"
                 }
             }
             else if(Modes === "ADDITION" || Modes ==="SUBSTRACTION"){
                 if (Difficulty === "Casual") {
                     CIC = 100
                     NOO = 1000
+                    Casual.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Intermediate") {
                     CIC = 250
                     NOO = 1500
+                    Intermediate.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Challenge") {
                     CIC = 500
                     NOO = 2000
+                    Challenge.style.backgroundColor = "#00008040"
                 } else if (Difficulty === "Mastery") {
                     Exponentia()
+                    Mastery.style.backgroundColor = "#00008040"
                 }
             }
             }
             let answer;
             let timer;
             let counter = -1;
+            AO.checked = true
             body.classList.add("AllowJitter");
-            AJ.addEventListener("change", () => {
-                body.classList.toggle("AllowJitter");
-            });
                 Rbutton.addEventListener("click", () => {
                     Input.classList.add("jittered-centered");
                     counter++;
@@ -739,7 +1076,7 @@
                     if (Difficulty === "Challenge") 
                     {time = 15}
                     else if (Difficulty === "Mastery") 
-                    {time = 10 + Math.floor(Number(Streak/s123)) * 2}
+                    {time = 10 + Math.floor(Number(Streak/s123)) * 1}
                     else {time = 10}
                     DIFFICULTY()
                     const Vinput = parseFloat(Input.value)
@@ -771,7 +1108,7 @@
                     }, 1000)
                     
                 })
-                Input.addEventListener("keydown", (event ) => {
+                Input.addEventListener("keydown", (event) => {
                     if (event.key !== "Enter") return;
                     counter++;
                     if (timer) {clearInterval(timer)}
@@ -781,7 +1118,7 @@
                     if (Difficulty === "Challenge") 
                     {time = 15}
                     else if (Difficulty === "Mastery") 
-                    {time = 10 + Math.floor(Number(Streak/s123)) * 2}
+                    {time = 10 + Math.floor(Number(Streak/s123)) * 1}
                     else {time = 10}
                     DIFFICULTY()
                     const Vinput = parseFloat(Input.value)
