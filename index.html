@@ -284,12 +284,6 @@
             box-shadow:2px 2px black;
             
         }
-        .Hasil {
-            font-size: 1.5rem;
-            font-weight:bold;
-            color:#333333d7;
-            margin-bottom:0;
-        }   
         .Mastery {
             position:absolute;
             top:125%;
@@ -399,6 +393,7 @@
             text-align: center;
             font-size:1.5rem;   
             font-family:'Algerian', serif;    
+            margin-bottom:0;    
         }       
          .DONE{
             font-size: 1rem;
@@ -758,7 +753,7 @@
             font-size: clamp(1.2rem, 4vw, 2rem);
         }
         .N1, .N2 { 
-            font-size: 1.25rem; 
+            font-size: clamp(2rem, 4vw, 2rem); 
             width: 30%;
             top:55%;
         }
@@ -767,7 +762,7 @@
         }
         .Hasil { 
             font-size: clamp(1rem, 4vw, 1.5rem);
-            top: 52%;
+            transform: translate(-50%, 1rem )
         }
         .Rbutton { 
             width: 30%; 
@@ -813,7 +808,7 @@
             top: 65%;
         }
         .N1, .N2 { 
-            font-size: 0.85rem; 
+            font-size: clamp(1.25rem, 4vw, 2rem); 
             width: 27.5%;
             aspect-ratio: 1/1;
             top:60%
@@ -842,6 +837,12 @@
             max-height:6%;
             font-size: 0.8rem;
             top:52.5%
+        }
+        .Hasil { 
+            font-size: clamp(0.75rem, 3vw, 1rem);
+            top:56%;
+            margin-top: 0.9rem;
+            transform: translate(-50%, 0)
         }
         .Settings { 
             width: 70vw; 
