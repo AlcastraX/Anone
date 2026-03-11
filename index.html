@@ -69,6 +69,11 @@
             box-shadow: inset 2px 2px black;
             transform:translate(-10%,-50%);
         }
+        #CloseHtp::before:hover {
+            animation: none;
+            content: "X";
+            color:white;
+        }
         .CHTP {
             position:absolute;
             top:50%;
@@ -83,6 +88,15 @@
             cursor:pointer;
             padding:0;
             margin:0;
+        }
+        .CHTP::before {
+            content: "X";
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            font-weight:bold;
         }
         .Rule {
             display:block;
@@ -212,7 +226,7 @@
             font-size: 1.4rem;
             font-weight:bold;
             width:98%;
-            height:clamp(0.8rem , 1.5rem, 2rem);
+            height:1.5rem;
             text-align: center;
             background-color:#010169;
             color:white;
@@ -270,6 +284,12 @@
             box-shadow:2px 2px black;
             
         }
+        .Hasil {
+            font-size: 1.5rem;
+            font-weight:bold;
+            color:#333333d7;
+            margin-bottom:0;
+        }   
         .Mastery {
             position:absolute;
             top:125%;
@@ -293,7 +313,7 @@
             box-shadow: inset 2px 2px black;
             transform:translate(-1%,-1%)
         }
-        #BStart:hover {
+         body.AllowJitter #BStart:hover {
             background-color: #00008040;
             animation: jitter-centered 0.1s infinite;
         }
@@ -412,6 +432,11 @@
             gap:1rem;
             position:relative;
             overflow:visible;
+        }
+        .SS2-head {
+            font-size: 3rem;
+            font-weight:bold;
+            transform: translateY(1rem);
         }
         .Settings-icon {
             position:absolute;
@@ -541,7 +566,7 @@
                 aspect-ratio: 2/1.2;
             }
             .Settings {
-                width:95vw;
+                width:92.5vw;
                 aspect-ratio: 2/1.2;
             }
             .INTRODUCTION {
@@ -551,7 +576,7 @@
             }
             .N1, .N2 {
                 font-size: 2rem;
-                width:27.5%;
+                width: 30%;
                 aspect-ratio: 1/1;
             }
             .V1::before {
@@ -560,9 +585,13 @@
             .Btn-Place{
                 left:45%
             }
+            .SS2-head {
+                font-size: clamp(2rem, 4vw, 3rem);
+                transform: none;
+            }
             .Rbutton {
                 width:30%;
-                height:1.5rem;
+                height:clamp(1.5rem, 2rem, 2rem);
                 font-size: 0.8rem;
                 top:12.5%
             }
@@ -575,20 +604,23 @@
                 font-size: 1rem;
             }
             .TIMER, .Streak {
-                font-size: 0.75rem;
-                height:0.8rem
+                font-size: 0.8rem;
+                height:0.9rem
+            }
+            .Streak {
+                top:93.75%;
             }
             .Hasil {
-                font-size: 0.8rem;
-                top:52%
+                font-size: clamp(1.1rem, 3vw, 1.225rem);
+                top:55%
             }
             .Difficulties::before {
                 font-size: 1.5rem;
             }
             .Difficulties {
-                width: 75vw;
+                width: 90vw;
                 gap:5px;
-                top:-40%
+                top:-27.5%
             }
             .Casual, .Intermediate, .Challenge {
                 width:30%;
@@ -604,34 +636,24 @@
         }
 
         @media (max-width: 600px) {
-            .Pamphlet {
-                width:95vw;
-                aspect-ratio: 2/1.2;
-                top:60%;
-            }
             .Settings {
                 width:98vw;
                 aspect-ratio: 2/1.2;
             }
             .Btn-Place {
-                left:67.5%
+                left:70%
             }
             .INTRODUCTION {
-                width:92vw;
+                width:90vw;
                 height:auto;
                 max-height:75vh;
-            }
-            .N1, .N2 {
-                font-size: 1.5rem;
-                width:25%;
-                aspect-ratio: 1/1;
             }
             .V1::before {
                 font-size: 2rem;
             }
             .Rbutton {
                 width:40%;
-                height:1.3rem;
+                height:1.6rem;
                 font-size: 0.7rem;
                 top:12%;
             }
@@ -648,16 +670,20 @@
                 height:0.7rem;
             }
             .Hasil {
-                font-size: 0.7rem;
-                top:50%;
+                font-size: clamp(0.75rem, 3vw, 1.1rem);
+                top:56%;
+                margin-top: 0.9rem;
             }
             .Difficulties::before {
                 font-size: 1.2rem;
             }
             .Difficulties {
-                width: 85vw;
+                width: 90vw;
                 gap:4px;
-                top:-45%;
+                top:-30%;
+            }
+            .Btn-Place {
+                left:clamp(65%, 45%, 70%)
             }
             .Casual, .Intermediate, .Challenge {
                 width:32%;
@@ -680,12 +706,23 @@
                 flex:1;
             }
             .Btn-Place{
-                left:82.5%
+                left:85%;
             }
             .Difficulties {
                 width:90vw;
                 gap:3px;
-                top:-50%;
+                top: -37.5%;
+            }
+            .Rbutton {
+                width:40%;
+                height:1.4rem;
+                font-size: 0.5755rem;
+                top:12%;
+            }
+            .Hasil {
+                font-size: clamp(0.625rem, 3vw, 1.1rem);
+                top:56%;
+                margin-top: 0.9rem;
             }
             .Difficulties::before {
                 font-size: 1.2rem;
@@ -699,18 +736,21 @@
                 font-size: 2rem;
             }
         }
-        @media (max-height: 768px) {
+        @media (max-height: 768px) and (max-width: 768px) {
         .Pamphlet { 
-            width: 50vw; 
-            height: 65vh; 
+            width: 90vw; 
+            aspect-ratio: 2/1.2;
             top: 65%; 
             transform: translate(-50%, -50%);
         }
         .Settings { 
-            width: 70vw; 
-            height: 65vh; 
+            width: 92.5vw; 
+            aspect-ratio: 2/1.2;
             top: 50%; 
             transform: translate(-50%, -50%);
+        }
+        .SS2-head {
+            font-size: clamp(2rem, 4vw, 3rem)
         }
         .INTRODUCTION { 
             width: 90vw; 
@@ -718,16 +758,20 @@
             font-size: clamp(1.2rem, 4vw, 2rem);
         }
         .N1, .N2 { 
-            font-size: 0.6rem; 
-            width: 27.5%;
+            font-size: 1.25rem; 
+            width: 30%;
             top:55%;
         }
         .V1:before { 
             font-size: clamp(2rem, 8vw, 4rem);
         }
+        .Hasil { 
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            top: 52%;
+        }
         .Rbutton { 
-            width: 25%; 
-            height: 2.5rem; 
+            width: 30%; 
+            height: 1.75rem; 
             font-size: 1rem;
             top: 15%;
         }
@@ -736,17 +780,14 @@
             height: 15%;
             font-size: clamp(1rem, 4vw, 1.2rem);
         }
-        .TIMER, .Streak { 
-            font-size: clamp(0.8rem, 3vw, 1.2rem);
-        }
         .Hasil { 
             font-size: clamp(0.8rem, 3vw, 1.2rem);
             top: 48%;
         }
         .Difficulties { 
-            width: 50vw; 
-            gap: 1vw; 
-            top: -25%;
+            width: 90vw; 
+            gap: 1rem; 
+            top: -40%;
         }
         .Difficulties::before { 
             font-size: clamp(1.5rem, 2rem, 2.5rem);
@@ -754,11 +795,12 @@
         .Casual, .Intermediate, .Challenge { 
             flex: 1; 
             height: 2rem;
-            font-size: 0.6rem;
+            font-size:0.85rem;
         }
         .Mastery { 
             width: 100%; 
             height: 2rem;
+            font-size:0.85rem;
         }
         .Settings-icon { 
             width: clamp(2.5rem, 7vw, 4rem);
@@ -766,33 +808,40 @@
         }
     @media (max-height:500px){
         .Pamphlet { 
-            width: 50vw; 
-            height: 65vh; 
-            top: 60%;
+            width: 85vw; 
+            aspect-ratio: 2/0.85; 
+            top: 65%;
         }
         .N1, .N2 { 
-            font-size: 0.6rem; 
-            width: 20%;
+            font-size: 0.85rem; 
+            width: 27.5%;
+            aspect-ratio: 1/1;
             top:60%
         } 
         .Difficulties {
-            width: 50vw; 
+            width: 85vw; 
             gap: 2px; 
-            top: -32.5%;
+            top: -30%;
         }
         .Difficulties button {
             height: 1.6rem;
-            font-size: 0.5rem;
+            font-size: 0.75rem;
         }
          .Difficulties::before { 
             font-size: 1.5rem;
             top:-50%
         }
          .Rbutton { 
-            width: 25%; 
-            height: 1.5rem; 
+            width: 32.5%; 
+            height: 1.4rem; 
             font-size: 0.8rem;
             top: 15%;
+        }
+        .Input { 
+            width: 60%; 
+            max-height:6%;
+            font-size: 0.8rem;
+            top:52.5%
         }
         .Settings { 
             width: 70vw; 
@@ -805,13 +854,6 @@
             max-height: 75vh; 
             font-size: clamp(1.2rem, 4vw, 2rem);
         }
-        @media (max-height: 350px) {
-            .N1, .N2 { 
-                font-size: 0.5rem; 
-                width: 20%;
-                top:70%
-             } 
-    }
 }
     </style>
     </head>
@@ -870,7 +912,7 @@
              <div class="sec2">
                 <button id="BStart" class="Rbutton">START</button>
                <input class="Input" autofocus placeholder="Type your answer here">
-               <p class="Hasil"></p>
+               <p class="Hasil" ></p>
             </div>
         </div>
         <div class="Settings">
@@ -895,7 +937,7 @@
                 <input id="ADB" class="Onoff" type="checkbox">
                 <label for="ADB"></label>
                 </div>
-                <div style="font-size:3rem" class="SS2-head">SELECT MODE:</div>  
+                <div class="SS2-head">SELECT MODE:</div>  
             </div>
             </div>
             <div class="Settings-Section2">
@@ -949,9 +991,7 @@
             AO.addEventListener("change", ()=>{
                 if (AO.checked) {Overlay.style.display = "block"}
                 else {Overlay.style.display = "none"}})
-            AJ.addEventListener("change", () => {
-                body.classList.toggle("AllowJitter");
-            });
+
                 Setting_gear.addEventListener("click", () => {
                     Settings.classList.toggle("display")
                 })
@@ -1026,13 +1066,21 @@
                         N2.textContent = "?";
                     }, NOO);
             }
+            function Vibrator() {
+                if (body.classList.contains("AllowJitter")) 
+                {Input.classList.add("jitter-centered");
+                 Rbutton.classList.add("jitter-centered");
+                }
+                else {
+                    Input.classList.remove("jitter-centered");
+                    Rbutton.classList.remove("jitter-centered");
+                }
+            }
             function DIFFICULTY()  {
-                // Reset all buttons to original color
                 Casual.style.backgroundColor = "#00008017";
                 Intermediate.style.backgroundColor = "#00008017";
                 Challenge.style.backgroundColor = "#00008017";
                 Mastery.style.backgroundColor = "#00008017";
-                
                 if (Modes ==="MULTIPLICATION" || Modes==="DIVISION"){
                 if (Difficulty === "Casual") {
                     CIC = 25
@@ -1076,7 +1124,7 @@
             AO.checked = true
             body.classList.add("AllowJitter");
                 Rbutton.addEventListener("click", () => {
-                    Input.classList.add("jitter-centered");
+                    Vibrator()
                     counter++;
                     if (timer) {clearInterval(timer)}
                     Rbutton.textContent = "SUBMIT"
@@ -1118,6 +1166,7 @@
                     
                 })
                 Input.addEventListener("keydown", (event) => {
+                    Vibrator()
                     if (event.key !== "Enter") return;
                     counter++;
                     if (timer) {clearInterval(timer)}
@@ -1158,6 +1207,10 @@
                         Rbutton.textContent = "SUBMIT"
                     }, 1000)
                 })
+                AJ.addEventListener("change", () => {
+                body.classList.toggle("AllowJitter");
+                Vibrator()
+            });
             function Timer() { 
                 timer = setInterval(()=>{
                     TIMER.textContent = `TIME LEFT: ${time}s`
@@ -1185,7 +1238,6 @@
         </script>
     </body>
 </html> 
-
 
 
 
