@@ -832,7 +832,7 @@
             font-size: 0.8rem;
             top: 15%;
         }
-        .Input { 
+        .Input {    
             width: 60%; 
             max-height:6%;
             font-size: 0.8rem;
@@ -975,6 +975,7 @@
             const Setting_gear = document.querySelector('.Settings-icon')
             const CHTP = document.getElementById('CloseHTP')
             const INTRO = document.querySelector('.INTRODUCTION')
+            const ModesBtn = document.querySelectorAll('.Mode')
             let Difficulty = "None"
             let time = 10;
             let Streak = 0;
@@ -1024,9 +1025,22 @@
             }
                  let Modes = "MULTIPLICATION"
                     Addition.addEventListener("click", ()=>{ Modes = "ADDITION"})
-                    Subtraction.addEventListener("click", ()=>{Modes = "SUBSTRACTION"})
+                    Subtraction.addEventListener("click", ()=>{Modes = "SUBTRACTION"})
                     Multiplication.addEventListener("click", ()=>{Modes = "MULTIPLICATION"})
                     Division.addEventListener("click", ()=>{Modes = "DIVISION"})
+                    Addition.style.backgroundColor = "#00008017"
+                    Subtraction.style.backgroundColor = "#00008017"
+                    Multiplication.style.backgroundColor = "#00008017"
+                    Division.style.backgroundColor = "#00008017"
+                    ModesBtn.forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+
+                        ModesBtn.forEach(b => {
+                        b.style.backgroundColor = "#00008017";
+                    });
+                    btn.style.backgroundColor = "#0000FF80";
+                     });
+            });
             function Randoms() {
                     const N1 = document.querySelector('.N1');
                     const N2 = document.querySelector('.N2');
@@ -1090,36 +1104,36 @@
                 if (Difficulty === "Casual") {
                     CIC = 25
                     NOO = 1000
-                    Casual.style.backgroundColor = "#00008040"
+                    Casual.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Intermediate") {
                     CIC = 50
                     NOO = 1500
-                    Intermediate.style.backgroundColor = "#00008040"
+                    Intermediate.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Challenge") {
                     CIC = 100
                     NOO = 2000
-                    Challenge.style.backgroundColor = "#00008040"
+                    Challenge.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Mastery") {
                     Exponentia()
-                    Mastery.style.backgroundColor = "#00008040"
+                    Mastery.style.backgroundColor = "#0000FF80"
                 }
             }
-            else if(Modes === "ADDITION" || Modes ==="SUBSTRACTION"){
+            else if(Modes === "ADDITION" || Modes ==="SUBTRACTION"){
                 if (Difficulty === "Casual") {
                     CIC = 100
                     NOO = 1000
-                    Casual.style.backgroundColor = "#00008040"
+                    Casual.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Intermediate") {
                     CIC = 250
                     NOO = 1500
-                    Intermediate.style.backgroundColor = "#00008040"
+                    Intermediate.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Challenge") {
                     CIC = 500
                     NOO = 2000
-                    Challenge.style.backgroundColor = "#00008040"
+                    Challenge.style.backgroundColor = "#0000FF80"
                 } else if (Difficulty === "Mastery") {
                     Exponentia()
-                    Mastery.style.backgroundColor = "#00008040"
+                    Mastery.style.backgroundColor = "#0000FF80"
                 }
             }
             }
@@ -1243,6 +1257,3 @@
         </script>
     </body>
 </html> 
-
-
-
