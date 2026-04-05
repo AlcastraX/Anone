@@ -1040,17 +1040,20 @@
                         case "ADDITION":
                             answer = rando + rando2;
                             V1.setAttribute("data-symbol", "+")
+                            Addition.style.backgroundColor = "#00008040"
                             break;
-                        case "SUBSTRACTION":
+                        case "SUBTRACTION":
                             if (AN.checked) {
                                 answer = rando - rando2
                             }
                             else {answer = Math.abs(rando - rando2)}
+                            Subtraction.style.backgroundColor = "#00008040"
                             V1.setAttribute("data-symbol", "-") 
                             break;
                         case "MULTIPLICATION":
                             answer = rando * rando2;
                             V1.setAttribute("data-symbol", "X")
+                            Multiplication.style.backgroundColor = "#00008040"
                             break;
                         case "DIVISION":
                             if (AllowDecimal) {
@@ -1060,6 +1063,7 @@
                                 answer = rando*rando2/rando2 ;
                             };
                             V1.setAttribute("data-symbol", "/")
+                            Division.style.backgroundColor = "#00008040"
                             break;
                     }
                     setTimeout(() => {
