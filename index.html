@@ -1163,7 +1163,8 @@
                 {CIC = MultDiv ? 1000 : 500; NOO = 2000;Challenge.style.backgroundColor = "#0000FF80";}
                 else if (Difficulty === "Mastery")
                 {Exponentia();Mastery.style.backgroundColor = "#0000FF80";}
-                if (Gamemode === "FRACTION"){CIC = CIC/5; NOO = NOO * 5;}
+                if (Gamemode === "FRACTION" && !MultDiv){CIC = CIC/5; NOO = NOO * 5;}
+                else if (Gamemode === "FRACTION" && MultDiv){CIC = CIC/2.5; NOO = NOO * 4;}
             }
             let answer;
             let timer;
