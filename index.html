@@ -14,7 +14,7 @@
             margin: 0;
             padding: 0;
             position:relative;
-            height:100vh;
+            min-height:100vh;
             width:100vw;
             background-color: #c0c0c0;
             display:flex;
@@ -206,7 +206,7 @@
             box-shadow:2px 2px black;
             cursor: pointer;
             align-self:center;
-            font-family: Tahoma, Verdana, "MS Sans Serif", Arial, sans-serif;
+            font-family: 'Algerian', serif;
             position:absolute;
             top:18%;
             left:50%;
@@ -296,6 +296,10 @@
             border-color: white #3a3a3a #3a3a3a white;
             box-shadow:2px 2px black;
             }
+            #GAMEMODE {
+                font-weight:bold;
+                top:105%;
+             }
          * {
          font-family: 'Algerian', serif;
         }
@@ -403,7 +407,7 @@
             height:fit-content;
             color:white;
             box-shadow:2px 2px black;
-            padding-left:0.4rem
+            padding-left:0.4rem;
             
         }
         .Main-content {
@@ -468,7 +472,7 @@
             position:absolute;
             top:0%;
             left:35%;
-            transform:translateX(-50%)
+            transform:translateX(-50%);
         }
         .Settings-Section2 {
             height: 40%;
@@ -578,7 +582,7 @@
                 font-size: 3rem;
             }
             .Btn-Place{
-                left:45%
+                left:45%;
             }
             .SS2-head {
                 font-size: clamp(2rem, 4vw, 3rem);
@@ -607,7 +611,7 @@
             }
             .Hasil {
                 font-size: clamp(1.1rem, 3vw, 1.225rem);
-                top:55%
+                top:55%;
             }
             .Difficulties::before {
                 font-size: 1.5rem;
@@ -636,7 +640,7 @@
                 aspect-ratio: 2/1.2;
             }
             .Btn-Place {
-                left:70%
+                left:70%;
             }
             .INTRODUCTION {
                 width:90vw;
@@ -697,8 +701,11 @@
             .Casual, .Intermediate, .Challenge {
                 width:28vw;
                 height:25px;
-                font-size: 0.59rem;
+                font-size: 0.56rem;
                 flex:1;
+            }
+            #Intermediate{
+                font-size:0.56rem
             }
             .Btn-Place{
                 left:85%;
@@ -811,7 +818,7 @@
             font-size: clamp(1.25rem, 4vw, 2rem); 
             width: 27.5%;
             aspect-ratio: 1/1;
-            top:60%
+            top:60%;
         } 
         .Difficulties {
             width: 85vw; 
@@ -824,7 +831,7 @@
         }
          .Difficulties::before { 
             font-size: 1.5rem;
-            top:-50%
+            top:-50%;
         }
          .Rbutton { 
             width: 32.5%; 
@@ -900,10 +907,11 @@
         <div class="Pamphlet">
             <div class="Difficulties">
             <button class="Casual">CASUAL</button>
-            <button class="Intermediate">INTERMEDIATE</button>
+            <button class="Intermediate" id="Intermediate">INTERMEDIATE</button>
             <button class="Challenge">CHALLENGE</button>
             <button class="Mastery">Mastery</button>
-        </div>
+            </div>
+            <button class="Mastery" id="GAMEMODE">GAMEMODE:DEFAULT</button>
             <div class="Streak">STREAK:</div>
             <div class="sec1">
                 <div class="TIMER">TIME LEFT:</div>
@@ -976,6 +984,8 @@
             const CHTP = document.getElementById('CloseHTP')
             const INTRO = document.querySelector('.INTRODUCTION')
             const ModesBtn = document.querySelectorAll('.Mode')
+            const GAMEMODE = document.getElementById('GAMEMODE')
+            let Gamemode = "DEFAULT"
             let Difficulty = "None"
             let time = 10;
             let Streak = 0;
@@ -983,7 +993,9 @@
             Input.disabled = true;
             let CIC = 1
             let NOO = 0
-            let s123 = 7
+            let s123 = 10
+            let Modes = "MULTIPLICATION"
+            let GamemodeSwitched = false
             AN.checked = true
             AJ.checked = true
             CHTP.addEventListener("click", () => {
@@ -997,6 +1009,7 @@
                 Setting_gear.addEventListener("click", () => {
                     Settings.classList.toggle("display")
                 })
+            Rbutton.disabled = true
             Casual.addEventListener("click", ()=>{
                 Difficulty = "Casual"
                 Rbutton.disabled = false
@@ -1013,17 +1026,25 @@
                 Difficulty = "Mastery"
                 Rbutton.disabled = false
             })
-            Rbutton.disabled = CIC < 2
+            GAMEMODE.addEventListener("click", ()=>{
+                if (Gamemode === "DEFAULT") {
+                    Gamemode = "FRACTION"
+                    GAMEMODE.textContent = "GAMEMODE:FRACTION"
+                }
+                else {
+                    Gamemode = "DEFAULT"
+                    GAMEMODE.textContent = "GAMEMODE:DEFAULT"
+                }
+            })
             function Exponentia() {
                 if (Streak === 0){
-                    CIC = 4
-                    NOO = 500
+                    CIC = 5
+                    NOO = 750
                     return
                 }        
                 CIC = Math.floor(Math.pow(2, Math.floor(Number(Streak/s123)) + 2))
-                NOO = 500 + Streak * 50
+                NOO = 750 + Streak * 25
             }
-                 let Modes = "MULTIPLICATION"
                     Addition.addEventListener("click", ()=>{ Modes = "ADDITION"})
                     Subtraction.addEventListener("click", ()=>{Modes = "SUBTRACTION"})
                     Multiplication.addEventListener("click", ()=>{Modes = "MULTIPLICATION"})
@@ -1034,13 +1055,38 @@
                     Division.style.backgroundColor = "#00008017"
                     ModesBtn.forEach(btn => {
                     btn.addEventListener("click", (e) => {
-
                         ModesBtn.forEach(b => {
                         b.style.backgroundColor = "#00008017";
                     });
-                    btn.style.backgroundColor = "#0000FF80";
-                     });
+                    btn.style.backgroundColor = "#0000FF80";});
             });
+            function FRACTIONMODE(num, den, num2, den2){
+                const gcd = (a, b) => b === 0 ? Math.abs(a) : gcd(b, a % b);
+                let NumResult = 0;
+                let DenResult = 0;
+                switch (Modes) {
+                    case "ADDITION":
+                        NumResult = num * den2 + num2 * den;
+                        DenResult = den * den2;
+                        break;
+                    case "SUBTRACTION":
+                        NumResult = num * den2 - num2 * den;
+                        if(!AN.checked) {NumResult = Math.abs(NumResult);}
+                        DenResult = den * den2;
+                        break;
+                    case "MULTIPLICATION":
+                        NumResult = num * num2;
+                        DenResult = den * den2;
+                        break;
+                    case "DIVISION":
+                        NumResult = num * den2;
+                        DenResult = den * num2;
+                        break;
+                }
+                const GCDResult = gcd(NumResult, DenResult);
+                return AllowDecimal ? NumResult/DenResult : `${NumResult / GCDResult}/${DenResult / GCDResult}`; 
+            }
+            
             function Randoms() {
                     const N1 = document.querySelector('.N1');
                     const N2 = document.querySelector('.N2');
@@ -1048,38 +1094,46 @@
                     N2.style.opacity = "1";
                     const rando = Math.floor(Math.random() * CIC) + 1;
                     const rando2 = Math.floor(Math.random() * CIC) + 1;
-                    N1.textContent = `${rando}`;
-                    N2.textContent = `${rando2}`;
-                    switch (Modes) {
-                        case "ADDITION":
-                            answer = rando + rando2;
-                            V1.setAttribute("data-symbol", "+")
-                            Addition.style.backgroundColor = "#00008040"
-                            break;
-                        case "SUBTRACTION":
-                            if (AN.checked) {
-                                answer = rando - rando2
-                            }
-                            else {answer = Math.abs(rando - rando2)}
-                            Subtraction.style.backgroundColor = "#00008040"
-                            V1.setAttribute("data-symbol", "-") 
-                            break;
-                        case "MULTIPLICATION":
-                            answer = rando * rando2;
-                            V1.setAttribute("data-symbol", "X")
-                            Multiplication.style.backgroundColor = "#00008040"
-                            break;
-                        case "DIVISION":
-                            if (AllowDecimal) {
-                                answer = parseFloat((rando / rando2).toFixed(2));
-                            } else {
-                                N1.textContent = `${rando*rando2}`;
-                                answer = rando*rando2/rando2 ;
-                            };
-                            V1.setAttribute("data-symbol", "/")
-                            Division.style.backgroundColor = "#00008040"
-                            break;
+                    const rando3 = Math.floor(Math.random() * CIC) + 1;
+                    const rando4 = Math.floor(Math.random() * CIC) + 1;
+                    if (Gamemode === "FRACTION") 
+                    {N1.textContent = `${rando}/${rando2}`;N2.textContent = `${rando3}/${rando4}`;}
+                    else if (Gamemode === "DEFAULT") 
+                    {N1.textContent = `${rando}`;N2.textContent = `${rando2}`;
                     }
+                    if (Gamemode === "DEFAULT") {
+                        //LOGIC
+                        switch (Modes) {
+                            case "ADDITION":
+                                answer = rando + rando2;
+                                break;
+                            case "SUBTRACTION":
+                                answer = rando - rando2;
+                                if (!AN.checked) {answer = Math.abs(answer)}
+                                break;
+                            case "MULTIPLICATION":
+                                answer = rando * rando2;
+                                break;
+                            case "DIVISION":
+                                if (AllowDecimal) {answer = parseFloat((rando / rando2).toFixed(2));} 
+                                else {answer = Math.floor(rando / rando2);}
+                                break;
+                        }
+                        switch (Modes) {
+                            case "ADDITION" :
+                                V1.setAttribute("data-symbol", "+");
+                                break;
+                            case "SUBTRACTION" :
+                                V1.setAttribute("data-symbol", "-");
+                                break;
+                            case "MULTIPLICATION" :
+                                V1.setAttribute("data-symbol", "X");
+                                break;
+                            case "DIVISION" :
+                                V1.setAttribute("data-symbol", "÷");
+                }
+                    }
+                    else if (Gamemode === "FRACTION") {answer = FRACTIONMODE(rando, rando2, rando3, rando4)}
                     setTimeout(() => {
                         N1.textContent = "?";   
                         N2.textContent = "?";
@@ -1100,42 +1154,16 @@
                 Intermediate.style.backgroundColor = "#00008017";
                 Challenge.style.backgroundColor = "#00008017";
                 Mastery.style.backgroundColor = "#00008017";
-                if (Modes ==="MULTIPLICATION" || Modes==="DIVISION"){
-                if (Difficulty === "Casual") {
-                    CIC = 25
-                    NOO = 1000
-                    Casual.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Intermediate") {
-                    CIC = 50
-                    NOO = 1500
-                    Intermediate.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Challenge") {
-                    CIC = 100
-                    NOO = 2000
-                    Challenge.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Mastery") {
-                    Exponentia()
-                    Mastery.style.backgroundColor = "#0000FF80"
-                }
-            }
-            else if(Modes === "ADDITION" || Modes ==="SUBTRACTION"){
-                if (Difficulty === "Casual") {
-                    CIC = 100
-                    NOO = 1000
-                    Casual.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Intermediate") {
-                    CIC = 250
-                    NOO = 1500
-                    Intermediate.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Challenge") {
-                    CIC = 500
-                    NOO = 2000
-                    Challenge.style.backgroundColor = "#0000FF80"
-                } else if (Difficulty === "Mastery") {
-                    Exponentia()
-                    Mastery.style.backgroundColor = "#0000FF80"
-                }
-            }
+                const MultDiv = Modes === "MULTIPLICATION" || Modes === "DIVISION";
+                if (Difficulty === "Casual")
+                {CIC = MultDiv ? 25 : 100; NOO = 1000;Casual.style.backgroundColor = "#0000FF80";}
+                else if (Difficulty === "Intermediate")
+                {CIC = MultDiv ? 50 : 250; NOO = 1500;Intermediate.style.backgroundColor = "#0000FF80";}
+                else if (Difficulty === "Challenge")
+                {CIC = MultDiv ? 1000 : 500; NOO = 2000;Challenge.style.backgroundColor = "#0000FF80";}
+                else if (Difficulty === "Mastery")
+                {Exponentia();Mastery.style.backgroundColor = "#0000FF80";}
+                if (Gamemode === "FRACTION"){CIC = CIC/5; NOO = NOO * 5;}
             }
             let answer;
             let timer;
@@ -1154,8 +1182,11 @@
                     else if (Difficulty === "Mastery") 
                     {time = 10 + Math.floor(Number(Streak/s123)) * 1}
                     else {time = 10}
+                    if (Gamemode === "FRACTION") {time = time + 10}
                     DIFFICULTY()
-                    const Vinput = parseFloat(Input.value)
+                    let Vinput;
+                    if (Gamemode === "DEFAULT") {Vinput = parseFloat(Input.value)}
+                    else if (Gamemode === "FRACTION") {Vinput = Input.value.replace(/\s/g, '')}
                     if (counter > 0) {
                         if (Vinput === answer) {
                             hasil.textContent = "CORRECT!"
@@ -1171,7 +1202,7 @@
                             SD.textContent = ""
                         }
                     }
-                    else{hasil.textContent = "GOOD LUCK! DIFFICULTY: " + Difficulty.toUpperCase() + " MODE: " + Modes.toUpperCase()}
+                    else{hasil.textContent = "GOOD LUCK! DIFFICULTY: " + Difficulty.toUpperCase()}
                     Timer()
                     setTimeout(() => {
                         Randoms()
@@ -1197,8 +1228,11 @@
                     else if (Difficulty === "Mastery") 
                     {time = 10 + Math.floor(Number(Streak/s123)) * 1}
                     else {time = 10}
+                    if (Gamemode === "FRACTION") {time = time + 10}
                     DIFFICULTY()
-                    const Vinput = parseFloat(Input.value)
+                    let Vinput;
+                    if (Gamemode === "DEFAULT") {Vinput = parseFloat(Input.value)}
+                    else if (Gamemode === "FRACTION") {Vinput = Input.value.replace(/\s/g, '')}
                     if (counter > 0) {
                         if (Vinput === answer) {
                             hasil.textContent = "CORRECT!"
