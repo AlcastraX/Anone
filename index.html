@@ -14,18 +14,24 @@
             margin: 0;
             padding: 0;
             position:relative;
-            min-height:100vh;
+            min-height:100dvh;
             width:100vw;
             background-color: #c0c0c0;
             display:flex;
             justify-content: center;
             align-items: center;
-            overflow:hidden;
+            overflow:auto;
         }
-        ::-webkit-scrollbar {
-            width: 0.2rem;
-            height:fit-content;
-            background: hsl(0, 0%, 20%)
+        .Wrapper {
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0;
+            left:0;
+            overflow:auto;
+        }
+        .INTRODUCTION::-webkit-scrollbar {
+            display:none;
         }
         .INTRODUCTION {
             position:absolute;
@@ -36,7 +42,7 @@
             font-weight:bold;
             width: 30rem;
             background: #b5b5b5;
-            aspect-ratio:3/5;
+            height:75dvh;
             z-index:10000000;
             display:flex;
             flex-direction: column;
@@ -54,11 +60,14 @@
             font-size: 1.2rem;
             background-color:#000080d5;
             width: 98%;
-            height: 1.2rem;
+            height: 1.3rem;
             color:white;
             box-shadow:2px 2px black;
             text-align: center;
             position:relative;
+            display:flex;
+            justify-content: center;
+            align-items: center;
         }
         #CloseHTP:hover {
             background-color: hsla(258, 88%, 27%, 0.25);
@@ -340,7 +349,7 @@
         }
         .Overlay {
             width:100vw;
-            height:100vh;
+            height:100dvh;
             margin:0;
             padding:0;
             background-color: #777777;
@@ -570,8 +579,6 @@
             }
             .INTRODUCTION {
                 width:85vw;
-                height:auto;
-                max-height:80vh;
             }
             .N1, .N2 {
                 font-size: 2rem;
@@ -644,8 +651,6 @@
             }
             .INTRODUCTION {
                 width:90vw;
-                height:auto;
-                max-height:75vh;
             }
             .V1::before {
                 font-size: 2rem;
@@ -755,8 +760,8 @@
             font-size: clamp(2rem, 4vw, 3rem)
         }
         .INTRODUCTION { 
-            width: 90vw; 
-            max-height: 70vh; 
+            width: 90vw;
+            height: 72.5dvh;
             font-size: clamp(1.2rem, 4vw, 2rem);
         }
         .N1, .N2 { 
@@ -853,19 +858,22 @@
         }
         .Settings { 
             width: 70vw; 
-            height: 80vh; 
+            height: 80dvh; 
             top: 50%; 
             transform: translate(-50%, -50%);
         }
         .INTRODUCTION { 
             width: 90vw; 
-            max-height: 75vh; 
+            max-height: 70dvh; 
             font-size: clamp(1.2rem, 4vw, 2rem);
         }
 }
     </style>
     </head>
     <body>
+        <div class="Overlay"></div>
+        <img class="Settings-icon" src="Settings.png" alt="Settings">
+        <div class="Wrapper">
         <div class="INTRODUCTION">
             <div class="HTP"> HOW TO PLAY <button id="CloseHTP"class="CHTP"></button></div>
             <div class="Rule">
@@ -898,12 +906,10 @@
                 <ul class="Rules" style="color:rgba(24, 24, 24, 0.829); list-style:none">
                     <li>This Game can have more features in the future</li>
                     <li>If you still want to read The rules and How to play, refresh is the way!</li>
-
                 </ul>
+                <button class="HTP" id="IUNDERSTAND"style="font-weight:bold">I UNDERSTAND</button>
             </div>
         </div>
-        <div class="Overlay"></div>
-        <img class="Settings-icon" src="Settings.png" alt="Settings">
         <div class="Pamphlet">
             <div class="Difficulties">
             <button class="Casual">CASUAL</button>
@@ -958,6 +964,7 @@
             </div>
            </div>
         </div>
+        </div>
         <script>
             const body = document.body;
             const V1 = document.querySelector('.V1')
@@ -985,6 +992,7 @@
             const INTRO = document.querySelector('.INTRODUCTION')
             const ModesBtn = document.querySelectorAll('.Mode')
             const GAMEMODE = document.getElementById('GAMEMODE')
+            const CHTP2 = document.getElementById('IUNDERSTAND')
             let Gamemode = "DEFAULT"
             let Difficulty = "None"
             let time = 10;
@@ -998,6 +1006,9 @@
             let GamemodeSwitched = false
             AN.checked = true
             AJ.checked = true
+            CHTP2.addEventListener("click", () => {
+                INTRO.style.display = "none";
+            })
             CHTP.addEventListener("click", () => {
                 INTRO.style.display = "none";
             })
@@ -1119,7 +1130,9 @@
                                 else {answer = Math.floor(rando / rando2);}
                                 break;
                         }
-                        switch (Modes) {
+                    }
+                    else if (Gamemode === "FRACTION") {answer = FRACTIONMODE(rando, rando2, rando3, rando4)}
+                    switch (Modes) {
                             case "ADDITION" :
                                 V1.setAttribute("data-symbol", "+");
                                 break;
@@ -1132,9 +1145,7 @@
                             case "DIVISION" :
                                 V1.setAttribute("data-symbol", "÷");
                 }
-                    }
-                    else if (Gamemode === "FRACTION") {answer = FRACTIONMODE(rando, rando2, rando3, rando4)}
-                    setTimeout(() => {
+                setTimeout(() => {
                         N1.textContent = "?";   
                         N2.textContent = "?";
                     }, NOO);
